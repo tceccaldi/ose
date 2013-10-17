@@ -1,4 +1,6 @@
+package fr.mertzel.ose.vue;
 
+import fr.mertzel.ose.modele.*;
 import java.awt.* ;
 import javax.swing.* ;
 

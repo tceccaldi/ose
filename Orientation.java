@@ -1,3 +1,7 @@
+package fr.mertzel.ose.modele;
+
+
+
 /** Orientations et conséquences
  * @since Janvier 2013
  * @author xilim

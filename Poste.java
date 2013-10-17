@@ -1,3 +1,6 @@
+package fr.mertzel.ose.modele;
+
+
 import java.util.* ;
 
 /** Poste de travail

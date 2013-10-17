@@ -1,3 +1,7 @@
+package fr.mertzel.ose.vue;
+
+import fr.mertzel.ose.modele.* ;
+import fr.mertzel.ose.vue.*;
 /** Paramètres de l'interface graphique
  * @since Janvier 2013
  * @author xilim

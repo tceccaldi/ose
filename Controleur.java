@@ -1,5 +1,7 @@
-package controleur;
+package fr.mertzel.ose.controleur;
 
+import fr.mertzel.ose.vue.*;
+import fr.mertzel.ose.modele.*;
 import java.awt.event.* ;
 import javax.swing.event.* ;
 

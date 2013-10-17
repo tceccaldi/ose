@@ -1,3 +1,9 @@
+package fr.mertzel.ose;
+
+import fr.mertzel.ose.vue.*;
+import fr.mertzel.ose.modele.*;
+import fr.mertzel.ose.controleur.*;
+
 /** Application OSE
  * @since Janvier 2013
  * @author xilim

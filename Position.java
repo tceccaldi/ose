@@ -1,3 +1,7 @@
+package fr.mertzel.ose.modele;
+
+import fr.mertzel.ose.vue.*;
+
 /** Position des postes de travail
  * @since Janvier 2013
  * @author xilim
