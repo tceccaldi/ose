@@ -8,7 +8,7 @@ import java.util.* ;
  * @author xilim
  * @version 0.2
  */
-public class PlanSalle {
+public class PlanSalle  implements Iterable<PlanSalle.Poste> {
 	private String nom ;
 	private List<Poste> postes = new ArrayList<Poste>() ;
 
@@ -97,8 +97,8 @@ public class PlanSalle {
 	/** Obtenir la liste des postes
 	 * @return Liste des postes
 	 */
-	public List<Poste> listerPostes(){
-		return this.postes ;
+	public Iterator<Poste> iterator(){
+		return this.postes.iterator();
 	}
 	
 	/** Créer, pour chaque poste, la liste des postes visibles
