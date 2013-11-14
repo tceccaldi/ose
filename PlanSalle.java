@@ -8,7 +8,7 @@ import java.util.* ;
  * @author xilim
  * @version 0.2
  */
-public class PlanSalle  implements Iterable<PlanSalle.Poste> {
+public class PlanSalle extends SujetObservable implements Iterable<PlanSalle.Poste> {
 	private String nom ;
 	private List<Poste> postes = new ArrayList<Poste>() ;
 
@@ -41,6 +41,7 @@ public class PlanSalle  implements Iterable<PlanSalle.Poste> {
 	public void ajouterPoste(Position position,int orientation){
 		postes.add(new Poste(position,orientation)) ;
 		this.rechercherPostesVisibles() ;
+		this.notifier();
 	}
 	
 	/** Retirer un poste du plan de salle
@@ -51,6 +52,7 @@ public class PlanSalle  implements Iterable<PlanSalle.Poste> {
 		if(indice != -1){
 			postes.remove(indice) ;
 			this.rechercherPostesVisibles() ;
+			this.notifier();
 		}
 	}
 	

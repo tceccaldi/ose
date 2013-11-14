@@ -53,6 +53,8 @@ public class FenetrePrincipale extends JFrame {
 		this.pack() ;
 		this.setLocationRelativeTo(null) ;
 		this.setVisible(true) ;
+		
+		
 	}
 	
 	/** Créer la barre de menus
@@ -187,7 +189,7 @@ public class FenetrePrincipale extends JFrame {
 	 * @author xilim
 	 * @version 0.2
 	 */
-	public class Plan extends JPanel {
+	public class Plan extends JPanel implements Observateur {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -200,6 +202,7 @@ public class FenetrePrincipale extends JFrame {
 			super() ;
 			this.modele = modele ;
 			this.setBackground(Color.white) ;
+			modele.ajouter(this);
 		}
 			
 		/** Dessiner le plan de salle
@@ -233,7 +236,7 @@ public class FenetrePrincipale extends JFrame {
 		 */
 		private void placerPostes(Graphics2D g){
 			g.setStroke(new BasicStroke()) ;
-			for(PlanSalle.Poste poste : modele.listerPostes()){
+			for(PlanSalle.Poste poste : modele){
 				g.setColor(Color.gray) ;
 				int xPoste = Parametres.posteX(poste.getPosition().getTravee(),poste.getOrientation()) ;
 				int yPoste = Parametres.posteY(poste.getPosition().getRangee(),poste.getOrientation()) ;
@@ -264,7 +267,7 @@ public class FenetrePrincipale extends JFrame {
 			BasicStroke pointilles = new BasicStroke(1,BasicStroke.CAP_BUTT,BasicStroke.JOIN_ROUND,1.0f,dash,2f) ;
 			g.setStroke(pointilles) ;
 			g.setColor(Color.red) ;
-			for(PlanSalle.Poste poste : modele.listerPostes()){
+			for(PlanSalle.Poste poste : modele){
 				int centreX = Parametres.centrePersonneX(poste.getPosition().getTravee(),poste.getOrientation()) ;
 				int centreY = Parametres.centrePersonneY(poste.getPosition().getRangee(),poste.getOrientation()) ;
 				for(PlanSalle.Poste posteVisible : poste.getPostesVisibles()){
@@ -274,7 +277,11 @@ public class FenetrePrincipale extends JFrame {
 				}
 			}
 		}
+		
+		public void actualiser(){
+			this.repaint();
+		}
 	
-}
+	}
 	
 }
