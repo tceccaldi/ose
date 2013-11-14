@@ -26,6 +26,7 @@ public class Controleur implements MouseListener, ActionListener {
 		vue.getItemOuvrir().addActionListener(this) ;
 		vue.getItemEnregistrer().addActionListener(this) ;
 		vue.getItemQuitter().addActionListener(this) ;
+		vue.getItemPurger().addActionListener(this) ;
 		vue.getItemPlacerNord().addActionListener(this) ;
 		vue.getItemPlacerEst().addActionListener(this) ;
 		vue.getItemPlacerSud().addActionListener(this) ;
@@ -48,6 +49,10 @@ public class Controleur implements MouseListener, ActionListener {
 		else if(source == vue.getItemQuitter()){
 			System.out.println("Quitter") ;
 			System.exit(0) ;
+		}
+		else if(source == vue.getItemPurger()){
+			System.out.println("Purger") ;
+			modele.purger() ;
 		}
 		else if(source == vue.getItemPlacerNord()){
 			modele.ajouterPoste(this.position,Orientation.NORD) ;

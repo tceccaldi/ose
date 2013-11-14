@@ -56,6 +56,11 @@ public class PlanSalle extends SujetObservable implements Iterable<PlanSalle.Pos
 		}
 	}
 	
+	public void purger(){
+		postes.clear();
+		this.notifier();
+	}
+	
 	/** Visualiser sous forme textuelle le plan de salle
 	 */
 	public void visualiserPostes(){

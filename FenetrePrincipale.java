@@ -21,6 +21,7 @@ public class FenetrePrincipale extends JFrame {
 	private JMenuItem itemOuvrir ;
 	private JMenuItem itemEnregistrer ;
 	private JMenuItem itemQuitter ;
+	private JMenuItem itemPurger ;
 	
 	private JPopupMenu menuActions ;
 	
@@ -74,11 +75,20 @@ public class FenetrePrincipale extends JFrame {
 		menuFichier.add(itemQuitter) ;
 		barreMenus.add(menuFichier) ;
 		
+		
+		
+		JMenu menuPlan = new JMenu("Plan") ;
+		itemPurger = new JMenuItem("Purger") ;
+		menuPlan.add(itemPurger) ;
+		barreMenus.add(menuPlan) ;
+		
 		this.setJMenuBar(barreMenus) ;
 		itemNouveau.setEnabled(false) ;
 		itemOuvrir.setEnabled(false) ;
 		itemEnregistrer.setEnabled(false) ;
 	}
+	
+	
 	
 	/** Créer le menu contextuel
 	 */
@@ -117,6 +127,13 @@ public class FenetrePrincipale extends JFrame {
 	 */
 	public JMenuItem getItemQuitter(){
 		return this.itemQuitter ;
+	}
+	
+	/** Obtenir une référence à l'item Purger du menu Plan
+	 * @return Référence à l'item Purger
+	 */
+	public JMenuItem getItemPurger(){
+		return this.itemPurger ;
 	}
 	
 	/** Obtenir une référence à l'item Placer/Nord du menu contextuel
