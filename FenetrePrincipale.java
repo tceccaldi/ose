@@ -10,7 +10,7 @@ import java.awt.event.* ;
  * @author xilim
  * @version 0.2
  */
-public class FenetrePrincipale extends JFrame {
+public class FenetrePrincipale extends JFrame implements Observateur {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,15 +22,22 @@ public class FenetrePrincipale extends JFrame {
 	private JMenuItem itemEnregistrer ;
 	private JMenuItem itemQuitter ;
 	private JMenuItem itemPurger ;
+	private JMenuItem itemNommer ;
 	
 	private JPopupMenu menuActions ;
 	
-	private JMenu menuPlacer ;
+	private JMenu menuPlacer ;	
 	private JMenuItem itemPlacerNord ;
 	private JMenuItem itemPlacerEst ;
 	private JMenuItem itemPlacerSud ;
 	private JMenuItem itemPlacerOuest ;
 	private JMenuItem itemRetirer ;
+	
+	private JMenu menuOrienter ;
+	private JMenuItem itemOrienterNord ;
+	private JMenuItem itemOrienterEst ;
+	private JMenuItem itemOrienterSud ;
+	private JMenuItem itemOrienterOuest ;
 
 	/** Constructeur
 	 * @param modele Modèle (MVC)
@@ -55,6 +62,8 @@ public class FenetrePrincipale extends JFrame {
 		this.setLocationRelativeTo(null) ;
 		this.setVisible(true) ;
 		
+		modele.ajouter(this);
+		
 		
 	}
 	
@@ -78,6 +87,8 @@ public class FenetrePrincipale extends JFrame {
 		
 		
 		JMenu menuPlan = new JMenu("Plan") ;
+		itemNommer = new JMenuItem("Nommer") ;
+		menuPlan.add(itemNommer) ;
 		itemPurger = new JMenuItem("Purger") ;
 		menuPlan.add(itemPurger) ;
 		barreMenus.add(menuPlan) ;
@@ -106,6 +117,17 @@ public class FenetrePrincipale extends JFrame {
 		menuPlacer.add(itemPlacerSud) ;
 		itemPlacerOuest = new JMenuItem("vers Ouest") ;
 		menuPlacer.add(itemPlacerOuest) ;
+		
+		menuOrienter = new JMenu("Orienter") ;
+		menuActions.add(menuOrienter) ;
+		itemOrienterNord = new JMenuItem("vers Nord") ;
+		menuOrienter.add(itemOrienterNord) ;
+		itemOrienterEst = new JMenuItem("vers Est") ;
+		menuOrienter.add(itemOrienterEst) ;
+		itemOrienterSud = new JMenuItem("vers Sud") ;
+		menuOrienter.add(itemOrienterSud) ;
+		itemOrienterOuest = new JMenuItem("vers Ouest") ;
+		menuOrienter.add(itemOrienterOuest) ;
 	}
 	
 	/** Obtenir une référence à l'item Ouvrir du menu Fichier
@@ -127,6 +149,13 @@ public class FenetrePrincipale extends JFrame {
 	 */
 	public JMenuItem getItemQuitter(){
 		return this.itemQuitter ;
+	}
+	
+	/** Obtenir une référence à l'item Nommer du menu Plan
+	 * @return Référence à l'item Nommer
+	 */
+	public JMenuItem getItemNommer(){
+		return this.itemNommer ;
 	}
 	
 	/** Obtenir une référence à l'item Purger du menu Plan
@@ -164,6 +193,35 @@ public class FenetrePrincipale extends JFrame {
 		return this.itemPlacerOuest ;
 	}
 	
+	/** Obtenir une référence à l'item Placer/Ouest du menu contextuel
+	 * @return Référence à l'item Placer/Ouest
+	 */
+	public JMenuItem getItemOrienterNord(){
+		return this.itemOrienterNord ;
+	}
+	
+	/** Obtenir une référence à l'item Placer/Ouest du menu contextuel
+	 * @return Référence à l'item Placer/Ouest
+	 */
+	public JMenuItem getItemOrienterEst(){
+		return this.itemOrienterEst ;
+	}
+	
+	/** Obtenir une référence à l'item Placer/Ouest du menu contextuel
+	 * @return Référence à l'item Placer/Ouest
+	 */
+	public JMenuItem getItemOrienterSud(){
+		return this.itemOrienterSud ;
+	}
+	
+	/** Obtenir une référence à l'item Placer/Ouest du menu contextuel
+	 * @return Référence à l'item Placer/Ouest
+	 */
+	public JMenuItem getItemOrienterOuest(){
+		return this.itemOrienterOuest ;
+	}
+	
+	
 	/** Obtenir une référence à l'item Retirer du menu contextuel
 	 * @return Référence à l'item Retirer
 	 */
@@ -193,13 +251,42 @@ public class FenetrePrincipale extends JFrame {
 		if(this.modele.positionOccupee(position)){
 			this.menuPlacer.setEnabled(false) ;
 			this.itemRetirer.setEnabled(true) ;
+			this.menuOrienter.setEnabled(true) ;
 		}
 		else {
 			this.menuPlacer.setEnabled(true) ;
 			this.itemRetirer.setEnabled(false) ;
+			this.menuOrienter.setEnabled(false) ;
 		}
 		menuActions.show((Component)plan,x,y) ;
 	}
+	
+	public boolean saisirConfirmation(){
+		int reply = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment purger le plan de salle ?", "Purger", JOptionPane.YES_NO_OPTION);
+			if (reply == JOptionPane.YES_OPTION)
+			{
+				return true;
+			}
+			else{
+				return false;
+			}
+	}
+	
+	public String saisirNom(){
+		String reply = JOptionPane.showInputDialog(null, "Veuillez saisir le nom du plan de salle", "Nommer le plan de salle", JOptionPane.OK_OPTION);
+			if (reply != "")
+			{
+				return reply;
+			}
+			else{
+				return "";
+			}
+	}
+	
+	public void actualiser(){
+		
+			this.setTitle(modele.getNom() + " - OSE") ;
+		} 
 	
 	/** Vue (MVC) de l'application - Représentation graphique du plan de salle
 	 * @since Janvier 2013

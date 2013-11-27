@@ -32,6 +32,7 @@ public class PlanSalle extends SujetObservable implements Iterable<PlanSalle.Pos
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
+		this.notifier();
 	}
 	
 	/** Ajouter un poste au plan de salle
@@ -51,6 +52,15 @@ public class PlanSalle extends SujetObservable implements Iterable<PlanSalle.Pos
 		int indice = this.rechercherPoste(position) ;
 		if(indice != -1){
 			postes.remove(indice) ;
+			this.rechercherPostesVisibles() ;
+			this.notifier();
+		}
+	}
+	
+	public void orienterPoste(Position position, int orientation){
+		int indice = this.rechercherPoste(position) ;
+		if(indice != -1){
+			postes.get(indice).setOrientation(orientation);
 			this.rechercherPostesVisibles() ;
 			this.notifier();
 		}

@@ -4,6 +4,7 @@ import fr.mertzel.ose.vue.*;
 import fr.mertzel.ose.modele.*;
 import java.awt.event.* ;
 import javax.swing.event.* ;
+import javax.swing.* ;
 
 /** Contrôleur (MVC) de l'application
  * @since Janvier 2013
@@ -26,11 +27,16 @@ public class Controleur implements MouseListener, ActionListener {
 		vue.getItemOuvrir().addActionListener(this) ;
 		vue.getItemEnregistrer().addActionListener(this) ;
 		vue.getItemQuitter().addActionListener(this) ;
+		vue.getItemNommer().addActionListener(this) ;
 		vue.getItemPurger().addActionListener(this) ;
 		vue.getItemPlacerNord().addActionListener(this) ;
 		vue.getItemPlacerEst().addActionListener(this) ;
 		vue.getItemPlacerSud().addActionListener(this) ;
 		vue.getItemPlacerOuest().addActionListener(this) ;
+		vue.getItemOrienterNord().addActionListener(this) ;
+		vue.getItemOrienterEst().addActionListener(this) ;
+		vue.getItemOrienterSud().addActionListener(this) ;
+		vue.getItemOrienterOuest().addActionListener(this) ;
 		vue.getItemRetirer().addActionListener(this) ;
 		vue.getPlan().addMouseListener(this) ;
 	}
@@ -50,9 +56,27 @@ public class Controleur implements MouseListener, ActionListener {
 			System.out.println("Quitter") ;
 			System.exit(0) ;
 		}
-		else if(source == vue.getItemPurger()){
-			System.out.println("Purger") ;
-			modele.purger() ;
+		else if(source == vue.getItemPurger()){		
+			if (vue.saisirConfirmation())
+			{
+				System.out.println("Purger") ;
+				modele.purger() ;
+			}
+			else{
+				System.out.println("Purge annulée") ;
+			}
+		}
+		else if(source == vue.getItemNommer()){
+			String nom = vue.saisirNom();
+			if (nom!="")
+			{
+				System.out.println("Nommer") ;
+				modele.setNom(nom) ;
+				System.out.println(modele.getNom()) ;
+			}
+			else{
+				System.out.println("Nommer annulé") ;
+			}
 		}
 		else if(source == vue.getItemPlacerNord()){
 			modele.ajouterPoste(this.position,Orientation.NORD) ;
@@ -65,6 +89,18 @@ public class Controleur implements MouseListener, ActionListener {
 		}
 		else if(source == vue.getItemPlacerOuest()){
 			modele.ajouterPoste(this.position,Orientation.OUEST) ;
+		}
+		else if(source == vue.getItemOrienterNord()){
+			modele.orienterPoste(this.position,Orientation.NORD) ;
+		}
+		else if(source == vue.getItemOrienterEst()){
+			modele.orienterPoste(this.position,Orientation.EST) ;
+		}
+		else if(source == vue.getItemOrienterSud()){
+			modele.orienterPoste(this.position,Orientation.SUD) ;
+		}
+		else if(source == vue.getItemOrienterOuest()){
+			modele.orienterPoste(this.position,Orientation.OUEST) ;
 		}
 		else if(source == vue.getItemRetirer()){
 			modele.retirerPoste(this.position) ;
