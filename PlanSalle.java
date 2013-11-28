@@ -66,6 +66,36 @@ public class PlanSalle extends SujetObservable implements Iterable<PlanSalle.Pos
 		}
 	}
 	
+	public void enregistrer() throws IOException{
+		try{
+			FileOutputStream fluxFichier = new FileOutputStream(this.getNom() + ".ose");
+		
+			try{
+				ObjectOutputStream fluxObjet = new ObjectOutputStream(fluxFichier);
+				fluxObjet.writeObject(this);
+				fluxObjet.flush();
+				fluxObjet.close();
+			}
+			catch(IOException e){
+				System.out.println("impossible de créer le fichier");
+			}
+		}
+		catch(FileNotFoundException e){
+			System.out.println("impossible de créer le fichier");
+		}
+	}
+	
+	public PlanSalle ouvrir(String nomPlan) throws IOException, ClassNotFoundException{
+		FileInputStream fluxFichier = new FileInputStream(nomPlan + ".ose");
+		System.out.println(fluxFichier);		
+				
+		ObjectInputStream fluxObjet = new ObjectInputStream(fluxFichier);
+		PlanSalle planSalle = (PlanSalle) fluxObjet.readObject();
+		fluxObjet.close() ;			
+		
+		return planSalle;
+	}
+	
 	public void purger(){
 		postes.clear();
 		this.notifier();
